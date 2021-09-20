@@ -42,7 +42,7 @@ args <- commandArgs(TRUE)
 # select drug name
 prefix <- args[1] #"Gemcitabine" #
 # output dir
-out <- args[2] #"test" #
+out <- args[2] #"test_output" #args[2] #
 if(!dir.exists(out)) { dir.create(out) }
 
 ## list for boruta_signif
@@ -298,8 +298,8 @@ for( cut in c(1:100)){
     
     
     # save
-    write.csv(nct1.train.sig.t.grp,paste0(out, prefix, "_Affy_DE_TrainingSet_new_",cut,".csv"),row.names = T,quote = F)
-    write.csv(nct1.test.sig.t.grp,paste0(out,prefix,"_Affy_DE_TestingSet_new_",cut,".csv"),row.names = T, quote = F)
+    write.csv(nct1.train.sig.t.grp,paste0(out, "/", prefix, "_Affy_DE_TrainingSet_new_",cut,".csv"),row.names = T,quote = F)
+    write.csv(nct1.test.sig.t.grp,paste0(out,"/",prefix,"_Affy_DE_TestingSet_new_",cut,".csv"),row.names = T, quote = F)
     
     
     
@@ -357,14 +357,14 @@ for( cut in c(1:100)){
     print(table(boruta.test.sig.t.grp$group))
     
     # save
-    write.csv(boruta.train.sig.t.grp,paste0(out, prefix, "_Affy_boruta_TrainingSet_new_",cut,".csv"),row.names = T,quote = F)
-    write.csv(boruta.test.sig.t.grp,paste0(out,prefix,"_Affy_boruta_TestingSet_new_",cut,".csv"),row.names = T, quote = F)
+    write.csv(boruta.train.sig.t.grp,paste0(out, "/",prefix, "_Affy_boruta_TrainingSet_new_",cut,".csv"),row.names = T,quote = F)
+    write.csv(boruta.test.sig.t.grp,paste0(out,"/",prefix,"_Affy_boruta_TestingSet_new_",cut,".csv"),row.names = T, quote = F)
   }
   
 }
 
-saveRDS(boruta_signif_list, file=paste0(out, prefix, "_Affy_boruta_signif_list100.RDS"))
-saveRDS(tlist_list, file=paste0(out, prefix, "_Affy_DE_signif_list100.RDS"))
+saveRDS(boruta_signif_list, file=paste0(out, "/",prefix, "_Affy_boruta_signif_list100.RDS"))
+saveRDS(tlist_list, file=paste0(out, "/",prefix, "_Affy_DE_signif_list100.RDS"))
 
 common.ids=tlist_list[[1]]
 for(i in 2:100)
@@ -375,8 +375,6 @@ for(i in 2:100)
 
 print(length(common.ids))
 print((common.ids))
-saveRDS(common.ids, file=paste0(out, prefix, "_Affy_DE_signif_common_ids.RDS"))
-
 
 #### tlist list length
 list.length <- c()
