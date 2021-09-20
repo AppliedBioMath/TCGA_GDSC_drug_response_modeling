@@ -20,9 +20,9 @@ options(stringsAsFactors = FALSE)
 ##################################################################
 # input arguments
 # select drug name
-prefix <- "Gemcitabine" #args[1] #
+prefix <- args[1] #"Gemcitabine" #
 # output dir
-out <- "/Users/sgujja/repos/drug_R_NR_modeling//TCGA/scripts/test_output/" #args[2] 
+out <- args[2] #"/Users/sgujja/repos/drug_R_NR_modeling//TCGA/scripts/test_output/" # 
 
 # Stats Mat
 summary_df=data.frame(train_acc=double(),test_acc=double(),
@@ -40,8 +40,8 @@ n=1
 for( cut in c(1:100)){
   
   # Import the insurance dataset into H2O:
-  train <- read.csv(paste0(out,"/",prefix,"_DE_TrainingSet_new_",cut,".csv"),sep=",", header=T,stringsAsFactors = F, check.names = F )
-  test <- read.csv(paste0(out,"/",prefix,"_DE_TestingSet_new_",cut,".csv"),sep=",", header=T,stringsAsFactors = F, check.names = F)
+  train <- read.csv(paste0(out,"/",prefix,"_DE_TrainingSet_new_scaled_",cut,".csv"),sep=",", header=T,stringsAsFactors = F, check.names = F )
+  test <- read.csv(paste0(out,"/",prefix,"_DE_TestingSet_new_scaled_",cut,".csv"),sep=",", header=T,stringsAsFactors = F, check.names = F)
   
   # reassign column name
   names(train)[names(train) == 'y_train'] <- 'group'
