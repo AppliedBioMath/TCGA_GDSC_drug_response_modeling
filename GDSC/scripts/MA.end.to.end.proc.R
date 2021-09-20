@@ -40,9 +40,9 @@ gc()
 args <- commandArgs(TRUE)
 
 # select drug name
-prefix <- args[1] 
+prefix <- "Gemcitabine" #args[1] 
 # output dir
-out <- args[2] 
+out <- "test" #args[2] 
 if(!dir.exists(out)) { dir.create(out) }
 
 ## list for boruta_signif
@@ -50,10 +50,11 @@ boruta_signif_list = list()
 ## list for DE sig genes
 tlist_list = list()
 
-
+#### Note: Download RAW CEL files from GDSC to location below after cloning the repo
 # read the raw data
-raw_data_dir <- "../data/raw/"
-SDRF <- read.delim("../data/raw/E-MTAB-3610.sdrf.txt")
+raw_data_dir <- "../data/raw/cel_files/"
+
+SDRF <- read.delim("../data/E-MTAB-3610.sdrf.txt")
 
 # Binarized IC50 file
 clin <- as.data.frame(readxl::read_excel("../data/GDSC_binarizedIC50.xlsx"))
@@ -210,7 +211,10 @@ print(summary(result))
 
 
 #### read annotation file for chip
-anno_affy <- read.csv("../data/annot//HG-U219.na36.annot.csv", header=T, comment.char = '#')
+#### Note download file "HG-U219.na36.annot" into the data folder 
+#### http://www.affymetrix.com/support/technical/byproduct.affx?product=hg-u133-plus
+
+anno_affy <- read.csv("../data/HG-U219.na36.annot.csv", header=T, comment.char = '#')
 anno_affy_sub <- anno_affy[c("Probe.Set.ID","Transcript.Assignments")]
 anno_affy_sub$type <- ifelse(grepl('protein_coding', anno_affy_sub$Transcript.Assignments),'protein_coding','non_coding' )
 
@@ -382,4 +386,4 @@ for(index in 1:100)
 }
 
 print(summary(list.length))
-
+paste("Time to run the whole workflow:",intervalEnd - intervalStart,attr(intervalEnd - intervalStart,"units"))
