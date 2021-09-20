@@ -11,4 +11,6 @@ Step 1: Run MA.end.to.end.proc.R - this generates 100 cuts of scaled train and t
 Step 2a: Run run_ML_multirun_affy.R - this builds multiple ML models on each cut of train and test generated from step 1.
 Step 2b: Run DNN_h2o_binary_classf.R - this builds DL models using H2O framework on the scaled data sets generated from step 1.
 
-Note: please contact sgujja@appliedbiomath.com to get access to processed data sets > 25MB.
+Note: link to raw and processed data sets:
+https://appliedbiomath.box.com/s/0lgnc93iq47xetrwspcuwnx64f4qe1pk
+please contact sgujja@appliedbiomath.com for any questions.
