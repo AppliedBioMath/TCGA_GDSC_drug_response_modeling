@@ -40,9 +40,9 @@ gc()
 args <- commandArgs(TRUE)
 
 # select drug name
-prefix <- "Gemcitabine" #args[1] 
+prefix <- args[1] #"Gemcitabine" #
 # output dir
-out <- "test" #args[2] 
+out <- args[2] #"test" #
 if(!dir.exists(out)) { dir.create(out) }
 
 ## list for boruta_signif
