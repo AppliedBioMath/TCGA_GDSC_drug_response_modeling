@@ -79,15 +79,9 @@ for(cut in c(1:100))
       ### Main Model Loop
       cat(paste('\n', format(Sys.time(), "%H:%M"), '\n', sep=""))
       
-      # Remove Zero Variance
-      train_var = apply(x_train, 2, sd)
-      no_var_idx = which(train_var == 0.0)
-      if (length(no_var_idx) > 0) {
-        x_train = x_train[, -no_var_idx]
-        x_test = x_test[, -no_var_idx]
       }
-      # Normalize All Data
-      cat("\n---------------\nNormalize Data...\n---------------\n")
+      # Normalize Data
+      print("\n---------------\nNormalize Data...\n---------------\n")
       train_mean = apply(x_train, 2, mean)
       train_sd = apply(x_train, 2, sd)
       # Train
@@ -97,12 +91,19 @@ for(cut in c(1:100))
       z_x_test = sweep(x_test, 2, train_mean, "-")
       z_x_test = sweep(z_x_test, 2, train_sd, "/")
       
+      # Remove Zero Variance
+      train_var = apply(z_x_train, 2, sd)
+      no_var_idx = which(train_var == 0.0)
+      if (length(no_var_idx) > 0) {
+        z_x_train = z_x_train[, -no_var_idx]
+        z_x_test = z_x_test[, -no_var_idx]
       
-      # Fix Data Types
+      
+      # Make y categorical
       y_train = as.factor(y_train)
       y_test = factor(y_test, levels = levels(y_train))
       
-      #
+      # Run ML for multiple methods
       for (m in 1:length(methods)) {
         method=methods[m]
         print(method_name[[m]])
